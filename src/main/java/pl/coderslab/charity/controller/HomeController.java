@@ -10,7 +10,8 @@ public class HomeController {
 
 
     @RequestMapping("/")
-    public String homeAction(Model model){
+    public String homeAction(Model m){
+        m.addAttribute ( "message", "Hello Codrslab");
         return "index";
     }
 }

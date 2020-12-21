@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @Setter
 @ToString
 @Entity
-public class Category {
+public class Institution {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -23,4 +23,6 @@ public class Category {
 
     @NotBlank
     private String name;
+
+    private String description;
 }

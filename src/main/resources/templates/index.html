@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Title</title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/js/app.js}"/>
 </head>
 
 <body>
 <header th:replace="fragments/header :: header"></header>
 
-    <link rel="sheet" href="fragments/header.html"/>
     <section class="stats">
         <div class="container container--85">
             <div class="stats--item">
@@ -66,9 +66,9 @@
             <h2>O nas</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
                 optio esse quisquam illo omnis.</p>
-            <img src="/images/signature.svg" class="about-us--text-signature" alt="Signature"/>
+            <img th:src="@{/images/signature.svg}" class="about-us--text-signature" alt="Signature"/>
         </div>
-        <div class="about-us--image"><img src="/images/about-us.jpg" alt="People in circle"/>
+        <div class="about-us--image"><img th:src="@{/images/about-us.jpg}" alt="People in circle"/>
         </div>
     </section>
 
@@ -82,6 +82,7 @@
 
             <ul class="help--slides-items">
                 <li>
+<!--                    pętla w thymelaeve -->
                     <div class="col">
                         <div class="title">Fundacja "Dbam o Zdrowie"</div>
                         <div class="subtitle">Cel i misja: Pomoc dzieciom z ubogich rodzin.</div>
