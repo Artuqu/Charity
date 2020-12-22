@@ -14,24 +14,24 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-    private final InstitutionRepository ir;
+     public final InstitutionRepository ir;
 
     @Autowired
-    private HomeController(InstitutionRepository ir){
+    public HomeController(InstitutionRepository ir){
         this.ir=ir;
     }
 
 
     @RequestMapping("/")
-    public String homeAction(Model m){
+    public String homeAction(){
         return "index";
     }
 
 
-    @GetMapping("/")
+    @GetMapping("/ds")
     public String helloEach(Model m) {
-        List<Institution> institutions = ir.findAll ();
+        List <Institution> institutions = ir.findAll();
         m.addAttribute("institutions", institutions);
-        return "fragments/ul";
+        return "fragments/fundations";
     }
 }

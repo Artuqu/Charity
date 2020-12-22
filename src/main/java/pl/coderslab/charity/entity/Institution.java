@@ -10,12 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+//@Setter
+//@Getter
 @Entity
-@ToString
+//@ToString
+
 public class Institution {
-@Setter
-@Getter
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -25,6 +25,7 @@ public class Institution {
     private String name;
 
     private String description;
+
 
     public Long getId() {
         return id;
@@ -51,5 +52,14 @@ public class Institution {
     public Institution setDescription(String description) {
         this.description = description;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Institution{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
