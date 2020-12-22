@@ -31,15 +31,14 @@ public class DonationController {
         this.ir = ir;
     }
 
-    @GetMapping("")
-    public String Form() {
-        return "form";
-    }
 
-    @GetMapping("/all")
+    @GetMapping("")
     public String getAllDonations(Model m){
-        List<Donation> donations = dr.findAll ();
-        m.addAttribute ("donations", donations);
+        Donation donation = new Donation ();
+        m.addAttribute ("donation", donation);
+
+        List<Category> categories = cr.findAll ();
+        m.addAttribute ( "categories", categories );
         return "form";
     }
 

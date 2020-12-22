@@ -14,10 +14,10 @@
             <div class="subtitle" th:text="${institution.description}" ></div>
         </div>
 
-        <div class="col" th:if ="${institution.get(stat.index+1).name}">
+        <div class="col" th:if ="${institutions.get(stat.index+1).name}">
 
-            <div class="title" th:text="${institution.name}"></div>
-            <div class="subtitle" th:text="${institution.description}"></div>
+            <div class="title" th:text="${institutions.get(stat.index+1).name}"></div>
+            <div class="subtitle" th:text="${institutions.get(stat.index+1).description}"></div>
         </div>
     </li>
 

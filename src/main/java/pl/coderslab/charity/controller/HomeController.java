@@ -23,7 +23,10 @@ public class HomeController {
 
 
     @RequestMapping("/")
-    public String homeAction(){
+    public String homeAction(Model m){
+
+        List <Institution> institutions = ir.findAll();
+        m.addAttribute("institutions", institutions);
         return "index";
     }
 
