@@ -13,9 +13,10 @@ import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
+
 import java.util.ArrayList;
 import java.util.List;
+
 @RequestMapping("/donations")
 @Controller
 public class DonationController {
@@ -34,11 +35,18 @@ public class DonationController {
 
     @GetMapping("")
     public String getAllDonations(Model m){
+
         Donation donation = new Donation ();
         m.addAttribute ("donation", donation);
 
         List<Category> categories = cr.findAll ();
         m.addAttribute ( "categories", categories );
+
+        List<Institution> institutions = ir.findAll ();
+        m.addAttribute ( "institutions", institutions );
+
+        List<Donation> donations = dr.findAll ();
+        m.addAttribute ( "donations", donations );
         return "form";
     }
 

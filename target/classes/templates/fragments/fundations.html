@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<ul class="help--slides-items" th:fragment="ul">
+<ul class="help--slides-items" th:fragment="ul" th:object="${donation}">
     <li th:each="institution, stat: ${institutions}" th:if="${stat.even}">
 
         <div class="col">

@@ -6,14 +6,15 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.NotBlank;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//@Setter
-//@Getter
+@Setter
+@Getter
 @Entity
-//@ToString
+@ToString
 
 public class Institution {
 
@@ -27,39 +28,5 @@ public class Institution {
     private String description;
 
 
-    public Long getId() {
-        return id;
-    }
 
-    public Institution setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Institution setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Institution setDescription(String description) {
-        this.description = description;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "Institution{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }
