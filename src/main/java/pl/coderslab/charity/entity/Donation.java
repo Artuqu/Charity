@@ -4,7 +4,6 @@ package pl.coderslab.charity.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -43,7 +42,6 @@ public class Donation {
     private LocalTime pickUpTime;
 
     private String pickUpComment;
-
 
 
 }

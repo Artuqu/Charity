@@ -6,19 +6,22 @@
 </head>
 <body>
 
-<ul class="help--slides-items" th:fragment="ul" th:object="${donation}">
-    <li th:each="institution, stat: ${institutions}" th:if="${stat.even}">
+<ul class="help--slides-items" th:fragment="ul" th:each="institution, stat: ${institutions}" th:if="${stat.even}">
+
+    <li>
+        <div class="col" th:if ="${institutions.get(stat.index-1).name}">
+
+            <div class="title" th:text="${institutions.get(stat.index-1).name}"></div>
+            <div class="subtitle" th:text="${institutions.get(stat.index-1).description}"></div>
+        </div>
 
         <div class="col">
             <div class="title" th:text="${institution.name}"></div>
             <div class="subtitle" th:text="${institution.description}" ></div>
         </div>
 
-        <div class="col" th:if ="${institutions.get(stat.index+1).name}">
 
-            <div class="title" th:text="${institutions.get(stat.index+1).name}"></div>
-            <div class="subtitle" th:text="${institutions.get(stat.index+1).description}"></div>
-        </div>
+
     </li>
 
 <!--    <li>-->
