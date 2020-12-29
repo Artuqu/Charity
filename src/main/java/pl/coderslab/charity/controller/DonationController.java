@@ -11,11 +11,6 @@ import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.repository.CategoryRepository;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
-
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;

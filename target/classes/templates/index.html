@@ -30,7 +30,7 @@
         </div>
     </section>
 
-    <section th:class="steps">
+    <section class="steps" th:id="steps">
         <h2>Wystarczą 4 proste kroki</h2>
 
         <div class="steps--container">
@@ -59,18 +59,20 @@
         <a href="#" class="btn btn--large">Załóż konto</a>
     </section>
 
-    <section th:class="about-us">
+    <section class="about-us" th:id="about-us">
         <div class="about-us--text">
             <h2>O nas</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
-                optio esse quisquam illo omnis.</p>
+            <p>Jesteśmy organizacją non profit. Zajmujemy się przekazywaniem przedmiotów,
+                które nie są wam już potrzebne ale mogą nadal być wykorzystane.
+                Wypełnij formularz w zakładce "Przekaż dary" i zdecyduj jakiej organizacji chcesz oddać swoje rzeczy.
+                My zajmniemy się resztą.</p>
             <img th:src="@{/images/signature.svg}" class="about-us--text-signature" alt="Signature"/>
         </div>
         <div class="about-us--image"><img th:src="@{/images/about-us.jpg}" alt="People in circle"/>
         </div>
     </section>
 
-    <section class="help">
+    <section class="help" th:id="help">
         <h2>Komu pomagamy?</h2>
 
         <!-- SLIDE 1 -->
