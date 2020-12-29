@@ -3,6 +3,7 @@ package pl.coderslab.charity.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.Category;
 import pl.coderslab.charity.entity.Donation;
@@ -15,6 +16,8 @@ import pl.coderslab.charity.repository.InstitutionRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/donations")
@@ -51,6 +54,17 @@ public class DonationController {
         m.addAttribute ( "donations", donations );
         return "form";
 
+    }
+
+    @Transactional
+    @PostMapping("")
+    public String saveDonationPost(@ModelAttribute("donation") @Valid Donation donation, BindingResult result, Model m){
+        if (result.hasErrors()) {
+            return "form";
+        }
+        this.dr.save(donation);
+        m.addAttribute ("donation", donation);
+        return "redirect:form-confirmation";
     }
 
 
