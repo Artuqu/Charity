@@ -11,6 +11,8 @@ import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.repository.CategoryRepository;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
+import pl.coderslab.charity.service.JpaCharityService;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -18,28 +20,21 @@ import java.util.List;
 @Controller
 public class DonationController {
 
-    private final DonationRepository dr;
-    private final CategoryRepository cr;
-    private final InstitutionRepository ir;
 
+    private final JpaCharityService jcs;
 
 
     @Autowired
-    public DonationController(DonationRepository dr, CategoryRepository cr, InstitutionRepository ir) {
-        this.dr = dr;
-        this.cr = cr;
-        this.ir = ir;
+    public DonationController(JpaCharityService jcs) {
+        this.jcs = jcs;
+
     }
 
 
     @GetMapping("")
-    public String getAllDonations(Model m){
+    public String getAllDonations(Model m) {
 
-        Donation donation = new Donation ();
-        m.addAttribute ("donation", donation);
-
-
-        return getString (m);
+        return getString ( m );
 
     }
 
@@ -47,43 +42,33 @@ public class DonationController {
     @PostMapping("")
     public String saveDonationPost(@ModelAttribute("donation") @Valid Donation donation,
                                    BindingResult result,
-                                   Model m){
-        if (result.hasErrors()) {
-            return getString (m);
+                                   Model m) {
+        if (result.hasErrors ()) {
+            return getString ( m );
 
         }
-        this.dr.save(donation);
-        m.addAttribute ("donation", donation);
+        this.jcs.save ( donation );
+        m.addAttribute ( "donation", donation );
 
         return "confirmation";
     }
 
 
     private String getString(Model m) {
- List<Category> categories = cr.findAll ();
+        Donation donation = new Donation ();
+        m.addAttribute ( "donation", donation );
+
+        List<Category> categories = jcs.findAllCategory ();
         m.addAttribute ( "categories", categories );
 
-        List<Institution> institutions = ir.findAll ();
+        List<Institution> institutions = jcs.findAllInstitution ();
         m.addAttribute ( "institutions", institutions );
 
-        List<Donation> donations = dr.findAll ();
+        List<Donation> donations = jcs.findAllDonation ();
         m.addAttribute ( "donations", donations );
         return "form";
     }
 
-
-//    zapis do donation?
-//    @Transactional
-//    @PostMapping("/all")
-//    public String addDonationPost(@ModelAttribute("donations") @Valid Donation donation, BindingResult result, Model m) {
-//        if (result.hasErrors()) {
-//            return "form";
-//        }
-//        this.dr.save(donation);
-//        m.addAttribute("donations", donation);
-//
-//        return "form-confirmation";
-//    }
 
 
 

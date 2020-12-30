@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
+import pl.coderslab.charity.service.JpaCharityService;
 
 import java.util.List;
 
@@ -14,33 +15,26 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-    public final InstitutionRepository ir;
-    public final DonationRepository dr;
+    private final JpaCharityService jcs;
+    private final DonationRepository dr;
 
 
     @Autowired
-    public HomeController(InstitutionRepository ir,  DonationRepository dr)
+    public HomeController(JpaCharityService jcs, DonationRepository dr)
     {
-        this.ir = ir;
-        this.dr = dr;
+        this.jcs = jcs;
+        this.dr=dr;
+
     }
 
 
     @GetMapping("/")
     public String homeAction(Model m) {
-        List <Institution> institutions = ir.findAll ();
+        List <Institution> institutions = jcs.findAllInstitution ();
         m.addAttribute ( "institutions", institutions );
-//        List <Donation> getAllBags = c.getAllBags ();
-//        m.addAttribute ( "Bags", getAllBags );
-//        List <Donation> getAllGifts = c.getAllGifts();
-//        m.addAttribute ( "Gifts", getAllGifts );
-        m.addAttribute ( "Bags", dr.getSumOfBags() );
-        m.addAttribute ( "Gifts", dr.count() );
+        m.addAttribute ( "bags", dr.getSumOfBags() );
+        m.addAttribute ( "gifts", jcs.count() );
         return "index";
     }
-
-
-//    @ModelAttribute("Gifts")
-//    public List <Donation> getAllGifts() { return c.getAllGifts();}
 
 }

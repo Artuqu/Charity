@@ -47,7 +47,6 @@ public class Donation {
     @Size(min=9 ,max=13)
     private String phoneNumber;
 
-    @NotEmpty
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
 
