@@ -12,6 +12,8 @@ import java.util.List;
 @Repository
 public interface DonationRepository extends JpaRepository <Donation, Long> {
 
+    @Query("Select coalesce(sum(d.quantity),0) FROM Donation  d")
+    int getSumOfBags();
 
 
 }

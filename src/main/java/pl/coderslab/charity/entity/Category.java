@@ -4,7 +4,6 @@ package pl.coderslab.charity.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
 
 
 import javax.persistence.Entity;
@@ -22,12 +21,9 @@ public class Category {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     private String name;
 
-    public Long getId() {
-        return id;
-    }
+
 
 
 }

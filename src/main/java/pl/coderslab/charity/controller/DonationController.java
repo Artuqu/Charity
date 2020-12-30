@@ -11,7 +11,6 @@ import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.repository.CategoryRepository;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -39,7 +38,29 @@ public class DonationController {
         Donation donation = new Donation ();
         m.addAttribute ("donation", donation);
 
-        List<Category> categories = cr.findAll ();
+
+        return getString (m);
+
+    }
+
+
+    @PostMapping("")
+    public String saveDonationPost(@ModelAttribute("donation") @Valid Donation donation,
+                                   BindingResult result,
+                                   Model m){
+        if (result.hasErrors()) {
+            return getString (m);
+
+        }
+        this.dr.save(donation);
+        m.addAttribute ("donation", donation);
+
+        return "confirmation";
+    }
+
+
+    private String getString(Model m) {
+ List<Category> categories = cr.findAll ();
         m.addAttribute ( "categories", categories );
 
         List<Institution> institutions = ir.findAll ();
@@ -48,21 +69,7 @@ public class DonationController {
         List<Donation> donations = dr.findAll ();
         m.addAttribute ( "donations", donations );
         return "form";
-
     }
-
-    @Transactional
-    @PostMapping("")
-    public String saveDonationPost(@ModelAttribute("donation") @Valid Donation donation, BindingResult result, Model m){
-        if (result.hasErrors()) {
-            return "form";
-        }
-        this.dr.save(donation);
-        m.addAttribute ("donation", donation);
-        return "redirect:form-confirmation";
-    }
-
-
 
 
 //    zapis do donation?
