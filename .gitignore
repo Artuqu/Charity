@@ -6,5 +6,7 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+formTest.html
+testApp.js
 
 .idea

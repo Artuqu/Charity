@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.Category;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.Institution;
-import pl.coderslab.charity.repository.CategoryRepository;
-import pl.coderslab.charity.repository.DonationRepository;
-import pl.coderslab.charity.repository.InstitutionRepository;
 import pl.coderslab.charity.service.JpaCharityService;
 
 import javax.validation.Valid;
@@ -34,7 +31,7 @@ public class DonationController {
     @GetMapping("")
     public String getAllDonations(Model m) {
 
-        return getString ( m );
+        return getString(m);
 
     }
 
@@ -43,33 +40,32 @@ public class DonationController {
     public String saveDonationPost(@ModelAttribute("donation") @Valid Donation donation,
                                    BindingResult result,
                                    Model m) {
-        if (result.hasErrors ()) {
-            return getString ( m );
+        if (result.hasErrors()) {
+            return getString(m);
 
         }
-        this.jcs.save ( donation );
-        m.addAttribute ( "donation", donation );
+        this.jcs.save(donation);
+        m.addAttribute("donation", donation);
 
         return "confirmation";
     }
 
 
     private String getString(Model m) {
-        Donation donation = new Donation ();
-        m.addAttribute ( "donation", donation );
+        Donation donation = new Donation();
+        m.addAttribute("donation", donation);
 
-        List<Category> categories = jcs.findAllCategory ();
-        m.addAttribute ( "categories", categories );
+        List<Category> categories = jcs.findAllCategory();
+        m.addAttribute("categories", categories);
 
-        List<Institution> institutions = jcs.findAllInstitution ();
-        m.addAttribute ( "institutions", institutions );
+        List<Institution> institutions = jcs.findAllInstitution();
+        m.addAttribute("institutions", institutions);
 
-        List<Donation> donations = jcs.findAllDonation ();
-        m.addAttribute ( "donations", donations );
+        List<Donation> donations = jcs.findAllDonation();
+        m.addAttribute("donations", donations);
+
         return "form";
     }
-
-
 
 
 }

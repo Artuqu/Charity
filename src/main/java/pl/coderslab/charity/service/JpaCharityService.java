@@ -2,7 +2,6 @@ package pl.coderslab.charity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.coderslab.charity.entity.Category;
 import pl.coderslab.charity.entity.Donation;
@@ -14,6 +13,7 @@ import pl.coderslab.charity.repository.InstitutionRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 @Primary
@@ -69,5 +69,8 @@ public class JpaCharityService implements DonationService {
         return ir.save ( institution );
     }
 
-
+    public Object getBags() {
+        Query q = em.createQuery ( "Select coalesce(sum(d.quantity),0) FROM Donation  d" );
+        return q.getSingleResult ();
+    }
 }

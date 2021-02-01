@@ -5,8 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.coderslab.charity.entity.Institution;
-import pl.coderslab.charity.repository.DonationRepository;
-import pl.coderslab.charity.repository.InstitutionRepository;
 import pl.coderslab.charity.service.JpaCharityService;
 
 import java.util.List;
@@ -16,14 +14,13 @@ import java.util.List;
 public class HomeController {
 
     private final JpaCharityService jcs;
-    private final DonationRepository dr;
+
 
 
     @Autowired
-    public HomeController(JpaCharityService jcs, DonationRepository dr)
+    public HomeController(JpaCharityService jcs)
     {
         this.jcs = jcs;
-        this.dr=dr;
 
     }
 
@@ -32,7 +29,15 @@ public class HomeController {
     public String homeAction(Model m) {
         List <Institution> institutions = jcs.findAllInstitution ();
         m.addAttribute ( "institutions", institutions );
-        m.addAttribute ( "bags", dr.getSumOfBags() );
+        m.addAttribute ( "bags", jcs.getBags () );
+        m.addAttribute ( "gifts", jcs.count() );
+        return "index";
+    }
+    @GetMapping("/admin")
+    public String adminAction(Model m) {
+        List <Institution> institutions = jcs.findAllInstitution ();
+        m.addAttribute ( "institutions", institutions );
+        m.addAttribute ( "bags", jcs.getBags () );
         m.addAttribute ( "gifts", jcs.count() );
         return "index";
     }

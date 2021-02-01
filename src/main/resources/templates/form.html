@@ -109,7 +109,7 @@
                 <div class="form-group form-group--inline">
                     <label>
                         Liczba 60l worków:
-                        <input type="number" step="1" min="1" th:field="*{quantity}">
+                        <input type="number" step="1" min="1" name="quantity" th:field="*{quantity}">
                         <!--                               th:field="*{quantity}"-->
 
                     </label>
@@ -128,7 +128,7 @@
 
                 <div class="form-group form-group--checkbox" th:each="institution :${institutions}">
                     <label>
-                        <input type="radio" name="organization" th:value="${institution.id}" th:field="*{institution}">
+                        <input type="radio" th:value="${institution.id}" th:field="*{institution}" th:textContent="${institution.name}">
                         <span class="checkbox radio"></span>
                         <span class="description">
                   <div class="title" th:text="${institution.name}"></div>
@@ -142,7 +142,7 @@
 
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
-                    <button type="button" class="btn next-step">Dalej</button>
+                    <button type="button" class="btn next-step" >Dalej</button>
                 </div>
             </div>
 
@@ -155,16 +155,19 @@
                         <h4>Adres odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Ulica <input type="text" name="address" th:field="*{street}"> </label>
+                        <div id="errorStreet"></div>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Miasto <input type="text" name="city" th:field="*{city}"> </label>
+                       <div id="errorCity"></div>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
                                 Kod pocztowy <input type="text" name="zipCode" th:field="*{zipCode}">
                             </label>
+                            <div id="errorZipCode"></div>
                         </div>
 
                         <div class="form-group form-group--inline">
@@ -208,12 +211,12 @@
                         <ul>
                             <li>
                                 <span class="icon icon-bag"></span>
-                                <span class="summary--text">4 worki ubrań w dobrym stanie dla dzieci</span>
+                                <span class="summary--text" id="bagN"></span>
                             </li>
 
                             <li>
                                 <span class="icon icon-hand"></span>
-                                <span class="summary--text">Dla fundacji "Mam marzenie" w Warszawie</span>
+                                <span class="summary--text" id="fDesc"></span>
                             </li>
                         </ul>
                     </div>
