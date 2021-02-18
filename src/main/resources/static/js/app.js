@@ -246,7 +246,50 @@ updateForm() {
 
                      this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
                      this.$step.parentElement.hidden = this.currentStep >= 5;
+ let categories = form.querySelectorAll("input[type='checkbox']:checked");
 
+      let categoriesText = [];
+      for (let checkbox of categories) {
+        categoriesText.push(checkbox.parentNode.lastElementChild.textContent);
+      }
+
+      console.log(categoriesText);
+
+      let bagQuantityElement = form.querySelector("input[type='number']").value;
+
+      let donationDetails = document.querySelectorAll("div[data-step='5'] .summary div[class='form-section'] .summary--text");
+      console.log(donationDetails);
+      let numberOfBags = donationDetails[0];
+      console.log(bagQuantityElement);
+      if (bagQuantityElement < 2) {
+        numberOfBags.innerText = bagQuantityElement + " worek zawierający " + categoriesText.join(" oraz ");
+      } else if (bagQuantityElement < 5) {
+        numberOfBags.innerText = bagQuantityElement + " worki zawierające " + categoriesText.join(" oraz ");
+      } else {
+        numberOfBags.innerText = bagQuantityElement + " worków zawierających " + categoriesText.join(" oraz ");
+      }
+
+      let address = form.querySelectorAll("div[data-step='4'] div[class='form-section form-section--columns'] input[type='text']");
+      let street = address[0].value;
+      let city = address[1].value;
+      let zipcode = address[2].value;
+      let phone = document.querySelector("input[type='tel']").value;
+      let pickUpDate = document.querySelector("input[type='date']").value;
+      let pickUpTime = document.querySelector("input[type='time']").value;
+      let pickUpComments = document.querySelector("textarea").value;
+
+      const contactDetails = form.querySelectorAll("div[data-step='5'] .summary div[class='form-section form-section--columns'] ul li");
+      contactDetails[0].innerText = street;
+      contactDetails[1].innerText = city;
+      contactDetails[2].innerText = zipcode;
+      contactDetails[3].innerText = phone;
+      contactDetails[4].innerText = pickUpDate;
+      contactDetails[5].innerText = pickUpTime;
+      contactDetails[6].innerText = pickUpComments;
+
+      let institutions = form.querySelector("input[type='radio']:checked").parentNode.lastElementChild.firstElementChild.textContent;
+      let institutionText = donationDetails[1];
+      institutionText.innerText = "Dla fundacji " + institutions;
 }
 
 
