@@ -159,9 +159,9 @@ document.addEventListener("DOMContentLoaded", function () {
             {
 //            step 1
                 if (this.currentStep === 1) {
-                let categories = form.querySelectorAll("input[type='checkbox]:checked");
+                let categories = form.querySelectorAll("input[type='checkbox']:checked");
                 let counter = 0;
-                for (let i = 0; i < counter.length; i++){
+                for (let i = 0; i < categories.length; i++){
                 if (categories[i].checked){
                 counter++
                 }
@@ -177,16 +177,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else if (this.currentStep === 2){
                 let bagQuantity = form.querySelector("input[type='number']");
                 if (bagQuantity.value <= 0){
-                alert ("Musisz oddać conajmniej jeden worek."){
+                alert ("Musisz oddać conajmniej jeden worek.");
                 return false;
                 }
                 else {
                 return true;
                 }
-               }
+                }
 //               step 3
-            } else if (this.currentStep===3){
-            let institutionName = form.querySelectorAll("input[type='radio']:checked");
+             else if (this.currentStep===3){
+            let institutionName = form.querySelector("input[type='radio']:checked");
            if (institutionName !== null){
            return true;
            }
@@ -195,6 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 //                step 4
             else if (this.currentStep===4) {
+
             let divInput = form.querySelectorAll("div .form-group form-group--inline");
 
             let street = divInput[0].value;

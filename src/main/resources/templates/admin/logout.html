@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml" lang="pl" xmlns:th="http://www.thymeleaf.org">
+<body>
+<h1 th:inline="text">Witaj a panelu</h1>
+<span sec:authorize="isAuthenticated()">
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Wyloguj"/>
+</form>
+</span>
+</body>
+</html>
