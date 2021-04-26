@@ -1,13 +1,9 @@
 package pl.coderslab.charity.entity;
-
-
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
@@ -24,7 +20,7 @@ public class Donation {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank
     @Min (1)
     private Integer quantity;
 
@@ -34,16 +30,16 @@ public class Donation {
     @ManyToOne(fetch = FetchType.EAGER)
     private Institution institution;
 
-    @NotEmpty
+    @NotBlank
     private String street;
 
-    @NotEmpty
+    @NotBlank
     private String city;
 
-    @NotEmpty
+    @NotBlank
     private String zipCode;
 
-    @NotEmpty
+    @NotBlank
     @Size(min=9 ,max=13)
     private String phoneNumber;
 
@@ -51,7 +47,7 @@ public class Donation {
     private LocalDate pickUpDate;
 
     @Type (type = "time")
-    @DateTimeFormat(pattern = "HH-MM")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime pickUpTime;
 
     private String pickUpComment;

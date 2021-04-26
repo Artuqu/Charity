@@ -20,11 +20,11 @@
         </ul>
 
         <ul>
-            <li><a href="http://localhost:8080" class="btn btn--without-border active">Start</a></li>
-            <li><a href="http://localhost:8080#steps" class="btn btn--without-border">O co chodzi?</a></li>
-            <li><a href="http://localhost:8080#about-us" class="btn btn--without-border">O nas</a></li>
-            <li><a href="http://localhost:8080#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
-            <li><a href="http://localhost:8080#contact" class="btn btn--without-border">Kontakt</a></li>
+            <li><a th:href="@{/}" class="btn btn--without-border active">Start</a></li>
+            <li><a th:href="@{/#steps}" class="btn btn--without-border">O co chodzi?</a></li>
+            <li><a th:href="@{/#about-us}" class="btn btn--without-border">O nas</a></li>
+            <li><a th:href="@{/#help}" class="btn btn--without-border">Fundacje i organizacje</a></li>
+            <li><a th:href="@{/#contact}" class="btn btn--without-border">Kontakt</a></li>
         </ul>
     </nav>
 
@@ -174,6 +174,7 @@
                             <label>
                                 Numer telefonu <input type="phone" name="phoneNumber" th:field="*{phoneNumber}">
                             </label>
+                            <div id="errorPhoneNumber"></div>
                         </div>
                     </div>
 
@@ -181,10 +182,12 @@
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Data <input type="date" name="pickUpDate" th:field="*{pickUpDate}"> </label>
+                        <div id="errorPickUpDate"></div>
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label> Godzina <input type="text" name="pickUpTime" th:field="*{pickUpTime}"> </label>
+                            <label> Godzina <input type="time" name="pickUpTime" th:field="*{pickUpTime}"> </label>
+                        <div id="errorPickUpTime"></div>
                         </div>
 
                         <div class="form-group form-group--inline">

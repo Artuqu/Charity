@@ -128,9 +128,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 btn.addEventListener("click", e => {
                     e.preventDefault();
                     //validation to events
-                    if (this.validate()){
-                    this.currentStep++;
-                    this.updateForm();
+                    if (this.validate()) {
+                        this.currentStep++;
+                        this.updateForm();
                     }
                 });
             });
@@ -154,151 +154,149 @@ document.addEventListener("DOMContentLoaded", function () {
          */
 
 
-            // TODO: Validation
-            validate()
-            {
-//            step 1
-                if (this.currentStep === 1) {
+        // TODO: Validation
+        validate() {
+            //            step 1
+            if (this.currentStep === 1) {
                 let categories = form.querySelectorAll("input[type='checkbox']:checked");
                 let counter = 0;
-                for (let i = 0; i < categories.length; i++){
-                if (categories[i].checked){
-                counter++
+                for (let i = 0; i < categories.length; i++) {
+                    if (categories[i].checked) {
+                        counter++
+                    }
                 }
-                }
-                if (counter > 0){
-                return true;
-                }
-                else{
-                alert("Wybierz co najmniej jedną opcję.");
-                return false;
-                }
-//                step 2
-                } else if (this.currentStep === 2){
-                let bagQuantity = form.querySelector("input[type='number']");
-                if (bagQuantity.value <= 0){
-                alert ("Musisz oddać conajmniej jeden worek.");
-                return false;
+                if (counter > 0) {
+                    return true;
                 }
                 else {
-                return true;
+                    alert("Wybierz co najmniej jedną opcję.");
+                    return false;
                 }
+                //                step 2
+            } else if (this.currentStep === 2) {
+                let bagQuantity = form.querySelector("input[type='number']");
+                if (bagQuantity.value <= 0) {
+                    alert("Musisz oddać conajmniej jeden worek.");
+                    return false;
                 }
-//               step 3
-             else if (this.currentStep===3){
-            let institutionName = form.querySelector("input[type='radio']:checked");
-           if (institutionName !== null){
-           return true;
-           }
-           else {alert("Wybierz organizację.");
-           return false;}
+                else {
+                    return true;
                 }
-//                step 4
-            else if (this.currentStep===4) {
+            }
+            //               step 3
+            else if (this.currentStep === 3) {
+                let institutionName = form.querySelector("input[type='radio']:checked");
+                if (institutionName !== null) {
+                    return true;
+                }
+                else {
+                    alert("Wybierz organizację.");
+                    return false;
+                }
+            }
+            //                step 4
+            else if (this.currentStep === 4) {
 
-            let divInput = form.querySelectorAll("div .form-group form-group--inline");
+                let divInput = document.querySelectorAll("div[data-step='4'] div[class='form-section form-section--columns'] input[type='text']");
+                let errorCounter = 0;
+                let street = divInput[0].value;
+                let errorStreet = document.getElementById("errorStreet");
+                if (street === "") {
+                    errorStreet.innerHtml = "Podaj nazwę ulicy.";
+                    errorCounter++;
+                } else {
+                    errorStreet.innerHtml = "";
+                }
 
-            let street = divInput[0].value;
-            let errorStreet = form.getElementById("errorStreet");
-            if(street === ""){
-           errorStreet.innerText = "Podaj nazwę ulicy.";
-            } else {
-            errorStreet.innerText = "";
+                let city = divInput[1].value;
+                let errorCity = document.getElementById("errorCity");
+                if (city === "") {
+                    errorCity.innerText = "Podaj nazwę miasta.";
+                    errorCounter++;
+                } else {
+                    errorCity.innerText = "";
+                }
+
+                let zipCode = divInput[2].value;
+                let errorZipCode = document.getElementById("errorZipCode");
+                if (zipCode === "") {
+                    errorZipCode.innerText = "Podaj kod pocztowy.";
+                    errorCounter++;
+                } else {
+                    errorZipCode.innerText = "";
+                }
+
+                return errorCounter <= 0;
+            }
+        }
+
+        // TODO: get data from inputs and show them in summary
+        updateForm() {
+            this.$step.innerText = this.currentStep;
+
+
+            this.slides.forEach(slide => {
+                slide.classList.remove("active");
+
+                if (slide.dataset.step == this.currentStep) {
+                    slide.classList.add("active");
+                }
+            });
+
+            this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
+            this.$step.parentElement.hidden = this.currentStep >= 5;
+            let categories = form.querySelectorAll("input[type='checkbox']:checked");
+
+            let categoriesText = [];
+            for (let checkbox of categories) {
+                categoriesText.push(checkbox.parentNode.lastElementChild.textContent);
             }
 
-           let city = divInput[1].value;
-           let errorCity = form.getElementById("errorCity");
-           if (city === "") {
-           errorCity.innerText = "Podaj nazwę miasta.";
-           } else{
-           errorCity.innerText = "";
-           }
+            console.log(categoriesText);
 
-           let zipCode = divInput[2].value;
-           let errorZipCode = form.getElementById("errorZipCode");
-           if (zipCode === ""){
-           errorZipCode.innerText = "Podaj kod pocztowy.";
-           }else{
-           errorZipCode.innerText = "";
-           }
+            let bagQuantityElement = form.querySelector("input[type='number']").value;
 
-           let phone = divInput[3].value;
-           let errorPhone = form.getElementById("errorPhone");
-           if (phone === ""){
-           errorPhone.innetText = "Podaj swój nr telefonu";
-           }else{
-           errorPhone.innerText = "";
-           }
-}
-}
+            let donationDetails = document.querySelectorAll("div[data-step='5'] .summary div[class='form-section'] .summary--text");
+            console.log(donationDetails);
+            let numberOfBags = donationDetails[0];
+            console.log(bagQuantityElement);
+            if (bagQuantityElement < 2) {
+                numberOfBags.innerText = bagQuantityElement + " worek zawierający " + categoriesText.join(" oraz ");
+            } else if (bagQuantityElement < 5) {
+                numberOfBags.innerText = bagQuantityElement + " worki zawierające " + categoriesText.join(" oraz ");
+            } else {
+                numberOfBags.innerText = bagQuantityElement + " worków zawierających " + categoriesText.join(" oraz ");
+            }
 
-            // TODO: get data from inputs and show them in summary
-updateForm() {
-               this.$step.innerText = this.currentStep;
+            let address = form.querySelectorAll("div[data-step='4'] div[class='form-section form-section--columns'] input[type='text']");
+            let street = address[0].value;
+            let city = address[1].value;
+            let zipcode = address[2].value;
+            let phone = document.querySelector("input[type='phone']").value;
+            let pickUpDate = document.querySelector("input[type='date']").value;
+            let pickUpTime = document.querySelector("input[type='time']").value;
+            let pickUpComments = document.querySelector("textarea").value;
 
+            const contactDetails = form.querySelectorAll("div[data-step='5'] .summary div[class='form-section form-section--columns'] ul li");
+            contactDetails[0].innerText = street;
+            contactDetails[1].innerText = city;
+            contactDetails[2].innerText = zipcode;
+            contactDetails[3].innerText = phone;
+            contactDetails[4].innerText = pickUpDate;
+            contactDetails[5].innerText = pickUpTime;
+            contactDetails[6].innerText = pickUpComments;
 
-                     this.slides.forEach(slide => {
-                         slide.classList.remove("active");
-
-                         if (slide.dataset.step == this.currentStep) {
-                             slide.classList.add("active");
-                         }
-                     });
-
-                     this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
-                     this.$step.parentElement.hidden = this.currentStep >= 5;
- let categories = form.querySelectorAll("input[type='checkbox']:checked");
-
-      let categoriesText = [];
-      for (let checkbox of categories) {
-        categoriesText.push(checkbox.parentNode.lastElementChild.textContent);
-      }
-
-      console.log(categoriesText);
-
-      let bagQuantityElement = form.querySelector("input[type='number']").value;
-
-      let donationDetails = document.querySelectorAll("div[data-step='5'] .summary div[class='form-section'] .summary--text");
-      console.log(donationDetails);
-      let numberOfBags = donationDetails[0];
-      console.log(bagQuantityElement);
-      if (bagQuantityElement < 2) {
-        numberOfBags.innerText = bagQuantityElement + " worek zawierający " + categoriesText.join(" oraz ");
-      } else if (bagQuantityElement < 5) {
-        numberOfBags.innerText = bagQuantityElement + " worki zawierające " + categoriesText.join(" oraz ");
-      } else {
-        numberOfBags.innerText = bagQuantityElement + " worków zawierających " + categoriesText.join(" oraz ");
-      }
-
-      let address = form.querySelectorAll("div[data-step='4'] div[class='form-section form-section--columns'] input[type='text']");
-      let street = address[0].value;
-      let city = address[1].value;
-      let zipcode = address[2].value;
-      let phone = document.querySelector("input[type='tel']").value;
-      let pickUpDate = document.querySelector("input[type='date']").value;
-      let pickUpTime = document.querySelector("input[type='time']").value;
-      let pickUpComments = document.querySelector("textarea").value;
-
-      const contactDetails = form.querySelectorAll("div[data-step='5'] .summary div[class='form-section form-section--columns'] ul li");
-      contactDetails[0].innerText = street;
-      contactDetails[1].innerText = city;
-      contactDetails[2].innerText = zipcode;
-      contactDetails[3].innerText = phone;
-      contactDetails[4].innerText = pickUpDate;
-      contactDetails[5].innerText = pickUpTime;
-      contactDetails[6].innerText = pickUpComments;
-
-      let institutions = form.querySelector("input[type='radio']:checked").parentNode.lastElementChild.firstElementChild.textContent;
-      let institutionText = donationDetails[1];
-      institutionText.innerText = "Dla fundacji " + institutions;
-}
-
-
-
-
-
-
+            let institutions = form.querySelector("input[type='radio']:checked").parentNode.lastElementChild.firstElementChild.textContent;
+            let institutionText = donationDetails[1];
+            institutionText.innerText = "Dla fundacji " + institutions;
         }
+
+
+
+
+
+
+    }
 
 
 

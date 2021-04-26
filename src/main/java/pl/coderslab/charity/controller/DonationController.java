@@ -29,10 +29,9 @@ public class DonationController {
 
 
     @GetMapping("")
-    public String getAllDonations(Model m) {
-
+    public String saveDonationGet(Model m){
+        m.addAttribute("donation", new Donation());
         return getString(m);
-
     }
 
 
@@ -47,7 +46,7 @@ public class DonationController {
         this.jcs.save(donation);
         m.addAttribute("donation", donation);
 
-        return "confirmation";
+        return "redirect:donations";
     }
 
 
@@ -66,6 +65,7 @@ public class DonationController {
 
         return "form";
     }
+
 
 
 }

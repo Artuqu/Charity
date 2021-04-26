@@ -70,7 +70,7 @@ public class JpaCharityService implements DonationService {
     }
 
     public Object getBags() {
-        Query q = em.createQuery ( "Select coalesce(sum(d.quantity),0) FROM Donation  d" );
+        Query q = em.createQuery ( "Select coalesce(sum(d.quantity),0) FROM Donation d" );
         return q.getSingleResult ();
     }
 }
