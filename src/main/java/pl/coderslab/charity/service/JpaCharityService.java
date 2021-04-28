@@ -1,5 +1,4 @@
 package pl.coderslab.charity.service;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -8,9 +7,7 @@ import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.repository.CategoryRepository;
 import pl.coderslab.charity.repository.DonationRepository;
-import pl.coderslab.charity.repository.DonationService;
 import pl.coderslab.charity.repository.InstitutionRepository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -36,41 +33,41 @@ public class JpaCharityService implements DonationService {
 
     @Override
     public List<Donation> findAllDonation() {
-        return dr.findAll ();
+        return dr.findAll();
     }
 
     @Override
     public List<Category> findAllCategory() {
-        return cr.findAll ();
+        return cr.findAll();
     }
 
     @Override
     public List<Institution> findAllInstitution() {
-        return ir.findAll ();
+        return ir.findAll();
     }
 
     @Override
     public long count() {
-        return dr.count ();
+        return dr.count();
     }
 
     @Override
     public Donation save(Donation donation) {
-        return dr.save ( donation );
+        return dr.save(donation);
     }
 
     @Override
     public Category save(Category category) {
-        return cr.save ( category );
+        return cr.save(category);
     }
 
     @Override
     public Institution save(Institution institution) {
-        return ir.save ( institution );
+        return ir.save(institution);
     }
 
     public Object getBags() {
-        Query q = em.createQuery ( "Select coalesce(sum(d.quantity),0) FROM Donation d" );
-        return q.getSingleResult ();
+        Query q = em.createQuery("Select coalesce(sum(d.quantity),0) FROM Donation d");
+        return q.getSingleResult();
     }
 }
