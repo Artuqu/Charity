@@ -8,5 +8,6 @@
 /httpRequests/
 formTest.html
 testApp.js
-
+target/
 .idea
+*.properties
